@@ -1,0 +1,26 @@
+{
+  "name": "teacher-assistant",
+  "version": "1.0.0",
+  "description": "Back-end of a system that helps teachers manage administrative functions of their students.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Halo3fanz/teacher-assistant.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Halo3fanz/teacher-assistant/issues"
+  },
+  "homepage": "https://github.com/Halo3fanz/teacher-assistant#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
