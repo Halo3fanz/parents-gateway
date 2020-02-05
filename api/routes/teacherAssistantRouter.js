@@ -53,7 +53,6 @@ router.post('/api/register', (req, res, next) => {
         teacher: req.body.teacher,
         students: req.body.students
     }
-    //register.push(teacherList);
 
     // Send register to database
     db.registerStudents(teacherList.teacher, teacherList.students, (err, results) => {
@@ -74,8 +73,36 @@ router.post('/api/register', (req, res, next) => {
     });
 });
 
-// User Story 2
+// Retrieve a list of all common students to a given list of teachers
+router.get('/api/commonstudents', (req, res, next) => {
+    if(req.query.teacher === undefined) {
+        return res.status(400).send( {
+            success: 'false',
+            message: 'teacher email is required'
+        });
+    }
 
-
+    if ((typeof req.query.teacher) === "string") {    
+        db.getCommonStudent(req.query.teacher, (err, results) => {
+            if (err) {
+                return res.status(500).send({
+                    success: 'false',
+                    message: 'Server Error'
+                });
+            }
+            res.status(200).send(results);
+        });
+    } else {
+        db.getCommonStudents(req.query.teacher, (err, results) => {
+            if (err) {
+                return res.status(500).send({
+                    success: 'false',
+                    message: 'Server Error'
+                });
+            }
+            res.status(200).send(results);
+        })
+    }
+});
 
 module.exports = router;
