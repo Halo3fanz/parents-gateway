@@ -82,6 +82,7 @@ router.get('/api/commonstudents', (req, res, next) => {
         });
     }
 
+    // Route to single query if only one teacher
     if ((typeof req.query.teacher) === "string") {    
         db.getCommonStudent(req.query.teacher, (err, results) => {
             if (err) {
@@ -92,6 +93,7 @@ router.get('/api/commonstudents', (req, res, next) => {
             }
             res.status(200).send(results);
         });
+
     } else {
         db.getCommonStudents(req.query.teacher, (err, results) => {
             if (err) {
@@ -101,8 +103,29 @@ router.get('/api/commonstudents', (req, res, next) => {
                 });
             }
             res.status(200).send(results);
-        })
+
+        });
     }
+});
+
+router.post('/api/suspend', (req, res, next) => {
+    if (!req.body.student) {
+        return res.status(400).send({
+            success: 'false',
+            message: 'student email is required'
+        });
+    }
+    
+    db.suspendStudent(req.body.student, (err) => {
+        if (err) {
+            return res.status(500).send({
+                success: 'false',
+                message: 'Server Error'
+            });
+        }
+        res.status(204).send();
+    });
+
 });
 
 module.exports = router;

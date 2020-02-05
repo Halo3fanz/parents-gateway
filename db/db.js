@@ -48,27 +48,8 @@ exports.registerStudents = ((teacher, students, callback) => {
             callback(false, result);
         });
     });
-
-
-
-    /*
-    var sql = "INSERT INTO tadb.teachers(email) VALUES(\'" + teacher + "\')";
-    pool.getConnection((err, connection) => {
-        if (err) {
-            console.log("Get Connection: " + err);
-            callback(true);
-            return;
-        }
-        connection.query(sql, (err, rows) => {
-            if (err) {
-                console.log("Query: " + err);
-                callback(true);
-                return;
-            }
-            callback(false, rows);
-        });
-    }); */
 });
+
 exports.getCommonStudent = ((teacher, callback) => {
     pool.getConnection((err, connection) => {
         if (err) {
@@ -155,6 +136,32 @@ exports.getCommonStudents = ((teachers, callback) => {
            callback(false, o);
        })
     });
+});
+
+exports.suspendStudent = ((student, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) {
+            console.log(err);
+            callback(true);
+            return;
+        }
+
+        var sql = "UPDATE tadb.classes"
+        + " SET suspended = 1"
+        + " WHERE student_email = " + connection.escape(student)
+        + " AND id > 0";
+
+        connection.query(sql, (err) => {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+        });
+
+        callback(false);
+
+    })
 });
 
 // Fails after Z
