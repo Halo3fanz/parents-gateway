@@ -128,4 +128,43 @@ router.post('/api/suspend', (req, res, next) => {
 
 });
 
+router.post('/api/retrievefornotifications', (req, res, next) => {
+    if (!req.body.teacher) {
+        return res.status(400).send({
+            success: 'false',
+            message: 'teacher email is required'
+        });
+    } else if (!req.body.notification) {
+        return res.status(400).send({
+            success: 'false',
+            message: 'notification message required'
+        });
+    }
+
+    var mentionedStudents = getMentionedStudents(req.body.notification);
+
+    db.notifyStudents(req.body.teacher, mentionedStudents, (err, results) => {
+        if (err) {
+            return res.status(500).send({
+                success: 'false',
+                message: 'Server Error'
+            });
+        }
+        res.status(200).send(results);
+    });
+
+});
+
+function getMentionedStudents (msg) {
+    var arr = [];
+    var words = msg.split(" ");
+    
+    for (var word of words) {
+        if (word[0] == "@") { // ECMAScript 5
+            arr.push(word.slice(1));
+        } 
+    }
+    return arr;
+}
+
 module.exports = router;
