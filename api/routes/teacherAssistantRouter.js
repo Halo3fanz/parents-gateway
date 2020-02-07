@@ -27,13 +27,19 @@ module.exports = function(app) {
 var db = require('./../../db/db');
 
 router.get('/', (req, res, next) => {
+    /*
     db.getTeachers((err, results) => {
         if (err) {
             res.send(500, "Server Error");
             return;
         }
-        res.send(results);
+        res.status(200).send(results);
     });
+    */
+   res.status(200).send( {
+       success: 'true',
+       message: 'Server Endpoint established'
+   })
 });
 
 // User Story 1

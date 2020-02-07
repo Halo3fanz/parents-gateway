@@ -23,6 +23,7 @@ exports.getTeachers = function(callback) {
             callback(false, rows);
         });
     });
+    pool.releaseConnection(connection);
 }
 
 exports.registerStudents = ((teacher, students, callback) => {
@@ -59,7 +60,7 @@ exports.getCommonStudent = ((teacher, callback) => {
         }
 
         var sql = "SELECT DISTINCT student_email FROM tadb.classes";
-        sql += " WHERE teacher_email = " + "\'" + teacher + "\'";
+        sql += " WHERE teacher_email = " + connection.escape(teacher);
 
        connection.query(sql, (err, rows) => {
            if(err) {
@@ -193,7 +194,6 @@ exports.notifyStudents = ((teacher, students, callback) => {
            var key = "recipients";
            results[key] = [];
            for (var row of rows) {
-               console.log(typeof row);
                if (Array.isArray(row)) {
                    for (var r of row) {
                        results[key].push(r.student_email);

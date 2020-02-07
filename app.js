@@ -12,7 +12,6 @@ connection.connect((err) => {
         console.log('Error connecting to Db');
         return;
     }
-
     console.log('Connection established');
 });
 
@@ -27,18 +26,12 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 // Routes which handle request
-
-app.get("/teacher-assistant", (req, res, next) => {
-    res.json(["Orange", "Apple", "Watermelon"]);
-});
-
-// defining routes
 const teachersRoutes = require('./api/routes/teacherAssistantRouter');
 app.use('/', teachersRoutes);
 
 // Error handling
 app.use((req, res, next) => {
-    const error = new Error("Not found");
+    const error = new Error("API not found");
     error.status = 404;
     next(error);
 });
@@ -53,13 +46,6 @@ app.use((error, req, res, next) => {
 });
 
 module.exports = app;
-
-connection.query('SELECT * FROM teachers', (err, rows) => {
-    if (err) throw err;
-
-    console.log('Data received from Db:');
-    console.log(rows);
-})
 
 connection.end((err) => {
     // The connection is terminated gracefully
