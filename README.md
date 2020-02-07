@@ -18,7 +18,7 @@ A set of NodeJS API endpoints that helps teachers manage administrative function
 
 ## Setup
 
-Clone the repo and install the dependencies. Then establish a local MySQL database using the tadb.sql file. To run the app, use the command:
+Clone the repo and install the dependencies. Then establish a local MySQL database using the pg.sql file. To run the app, use the command:
 
 ```bash
 npm run start
