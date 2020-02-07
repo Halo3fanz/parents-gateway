@@ -4,38 +4,11 @@ const express = require('express');
 const router = express.Router();
 
 const teachers = require('./../../data/teachers');
-//const register = require('../register');
 
-// handle incoming request to /users
-/*
-router.get('/', (req, res, next) => {
-    res.status(200).json({
-       teachers: teachers
-    });
-});
-*/
-/*
-module.exports = function(app) {
-    var teachersList = require('../controllers/teacherAssistantController');
-
-    // teachersList routes
-    app.route('/api/register')
-        .get(teachersList.list_all_teachers)
-        .post(teachersList.register_teacher);
-}
-*/
 var db = require('./../../db/db');
 
+// For testing connection
 router.get('/', (req, res, next) => {
-    /*
-    db.getTeachers((err, results) => {
-        if (err) {
-            res.send(500, "Server Error");
-            return;
-        }
-        res.status(200).send(results);
-    });
-    */
    res.status(200).send( {
        success: 'true',
        message: 'Server Endpoint established'
@@ -69,7 +42,6 @@ router.post('/api/register', (req, res, next) => {
             });
             return;
         }
-        //res.status(204);
 
         res.status(204).send({
             success: 'true',
