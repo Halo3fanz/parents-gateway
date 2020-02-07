@@ -1,6 +1,38 @@
 # Parents' Gateway
 A set of NodeJS API endpoints that helps teachers manage administrative functions of their students.
 
+## Requirements
+
+* Node 8
+* MySQL
+
+### Dependencies
+
+* Body-parser
+* Express
+* Morgan
+* MySQL
+* Jest (unit testing)
+* nodemon
+* supertest
+
+## Setup
+
+Clone the repo and install the dependencies. Then establish a local MySQL database using the tadb.sql file. To run the app, use the command:
+
+```bash
+npm run start
+```
+The app will run on [http://localhost:3000](http://localhost:3000) and connect to a MySQL database.
+
+## Testing
+
+After setup, running the unit tests can be accomplished with the command:
+
+```bash
+npm run test
+```
+
 ## Registering Students
 Teachers are able to register one or more students to their classes. Students can be registered to multiple teachers.
 
