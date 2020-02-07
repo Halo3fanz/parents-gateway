@@ -16,12 +16,13 @@ describe("Testing the app API", () => {
 
     }, 9999);
 
-    it("tests invalid API call", async () => {
+    it("tests invalid API call", async (done) => {
 
         const response = await supertest(app).get('/invalidstring');
 
         expect(response.status).toBe(404);
         expect(typeof response.error.message).toBe("string");
+        done();
     });
     
     // Do not run on production database
