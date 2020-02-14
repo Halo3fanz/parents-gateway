@@ -22,7 +22,7 @@ router.post('/api/register', (req, res, next) => {
             success: 'false',
             message: 'teacher email is required'
         });
-    } else if (!req.body.students) {
+    } else if (!req.body.students || !Array.isArray(req.body.students) || req.body.students.length == 0) {
         return res.status(400).send({
             success: 'false',
             message: 'students are required'

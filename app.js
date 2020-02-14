@@ -12,7 +12,7 @@ connection.connect((err) => {
         console.log('Error connecting to Db');
         return;
     }
-    console.log('Connection established');
+    //console.log('Connection established');
 });
 
 const express = require('express');
@@ -51,5 +51,5 @@ connection.end((err) => {
     // The connection is terminated gracefully
     // Ensures all remaining queries are executed
     // Then sends a quit packet to the MySQL server.
-
+    
 });

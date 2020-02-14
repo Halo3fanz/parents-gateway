@@ -1,13 +1,15 @@
 'use strict'
 const mysql = require('mysql');
 
-const pool = mysql.createPool({
+var config = {
     host: 'localhost',
     user: 'root',
     password: 'password',
     database: 'tadb',
     multipleStatements: true
-});
+};
+
+const pool = mysql.createPool(config);
 
 exports.getTeachers = function(callback) {
     var sql = "SELECT * FROM teachers";
@@ -23,7 +25,6 @@ exports.getTeachers = function(callback) {
             callback(false, rows);
         });
     });
-    pool.releaseConnection(connection);
 }
 
 exports.registerStudents = ((teacher, students, callback) => {
@@ -46,6 +47,7 @@ exports.registerStudents = ((teacher, students, callback) => {
                 callback(true);
                 return;
             }
+            connection.release();
             callback(false, result);
         });
     });
@@ -76,9 +78,9 @@ exports.getCommonStudent = ((teacher, callback) => {
            for(var row of rows) {
                o[key].push(row.student_email);
            }
-
+           connection.release()
            callback(false, o);
-       })
+        })
     });
 });
 
